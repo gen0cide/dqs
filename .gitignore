@@ -2,3 +2,4 @@ dq.jar
 build/org/*
 *.conf
 *.log
+.DS_Store
