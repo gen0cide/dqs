@@ -126,6 +126,13 @@ public final class GameEngine extends Thread {
   private void processClients() {
     clientUpdater.sendQueuedPackets();
     long now = System.currentTimeMillis();
+    if(world.clientsNeedUpdate) {
+      Logger.println("Beginning to update client defs...");
+      clientUpdater.updateDefs();
+      clientUpdater.doMajor();
+      world.clientsNeedUpdate = false;
+      Logger.println("Finished updating client defs...");
+    }
     if(now - lastSentClientUpdate >= 600) {
       if(now - lastSentClientUpdate >= 1000) {
         //Logger.println("MAJOR UPDATE DELAYED: " + (now - lastSentClientUpdate));

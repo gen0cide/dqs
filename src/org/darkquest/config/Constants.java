@@ -24,7 +24,7 @@ public class Constants {
     /**
      * Is this wilderness fully f2p (no p2p weapons, items etc)
      */
-    public static boolean F2P_WILDY = true;
+    public static boolean F2P_WILDY = false;
     /**
      * Our World's Number, Gets set upon launch.
      */

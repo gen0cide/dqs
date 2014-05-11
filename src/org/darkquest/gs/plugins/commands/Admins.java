@@ -61,6 +61,22 @@ public class Admins implements CommandListener {
       player.getActionSender().sendAppearanceScreen();
       return;
     }
+    if(command.equals("updatedefs")) {
+      Logger.mod(player.getUsername() + " is updating defs.");
+      String reason = "";
+      if(args.length > 0) {
+        for(String s : args) {
+          reason += (s + " ");
+        }
+        reason = reason.substring(0, reason.length() - 1);
+      }
+      if(World.getWorld().getServer().emptyForUpdate()) {
+        for(Player p : world.getPlayers()) {
+          p.getActionSender().sendAlert("Defs have been updated. You will be automatically logged out in 60 seconds.", false);
+          p.getActionSender().startShutdown(60);
+        }
+      }    
+    }
     if(command.equals("item")) {
       if(args.length < 1 || args.length > 2) {
         player.getActionSender().sendMessage("Invalid args. Syntax: ITEM id [amount]");
@@ -110,8 +126,6 @@ public class Admins implements CommandListener {
       } else {
         player.getActionSender().sendMessage("Invalid id");
       }
-
-
       return;
     }
     if(command.equals("object")) {

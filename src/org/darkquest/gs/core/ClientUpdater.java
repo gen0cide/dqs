@@ -152,6 +152,16 @@ public final class ClientUpdater implements Processor {
       updateCollections();
     }
   }
+
+  public void updateDefs() {
+    for(Player p : players) {
+      updateItems(p);
+      updatePlayerApperances(p);
+      updateNpcApperances(p);
+    }
+    updateCollections();
+  }
+  
   public void process(Player p) {
 
     //System.out.println("Process for player " + p.getUsername() + " | threaded: " + threaded);

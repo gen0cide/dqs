@@ -52,6 +52,10 @@ public class EntityHandler {
   private static TileDef[] tiles;
 
   static {
+    loadDefs();
+  }
+
+  public static synchronized void loadDefs() {
     doors = (DoorDef[]) PersistenceManager.load("defs/DoorDef.xml.gz");
     gameObjects = (GameObjectDef[]) PersistenceManager.load("defs/GameObjectDef.xml.gz");
 

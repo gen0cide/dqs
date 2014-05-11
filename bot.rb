@@ -11,8 +11,18 @@ require 'ohm'
 
 Redis.current = Redis.new
 
-class Voter < Ohm::Model
-  attribute :name
+class CommandInterfaceReply
+  def initialize(bot)
+    @redis = Redis.new
+    @bot = bot
+  end
+
+  def start
+    while true
+      message = @redis.blpop("command_outgoing");
+      @bot.handlers.dispatch(:command_outgoing, nil, message);
+    end
+  end
 end
 
 class Question
@@ -286,6 +296,53 @@ if ARGV[0] == 'cli'
   exit 0
 end
 
+class CommandInterfaceReply
+  def initialize(bot)
+    @redis = Redis.new
+    @bot = bot
+  end
+
+  def start
+    while true
+      message = @redis.blpop("command_outgoing");
+      @bot.handlers.dispatch(:command_outgoing, nil, message);
+    end
+  end
+end
+
+class CommandInterface
+  include Cinch::Plugin
+
+  def initialize(*args)
+    super
+    @redis = Redis.new
+    @reply = Thread.new { CommandInterfaceReply.new(@bot).start }
+    @chan = "#clubhouse"
+    @admins = [ 'gen0cide_' ]
+  end
+
+  match /server (.+)$/, method: :server_command
+
+  listen_to :command_outgoing, method: :command_reply
+
+  def server_command(m, command)
+    return unless check_channel m.channel
+    @redis.rpush("command_incoming", command)
+  end
+
+  def check_channel(channel)
+    @chan == channel
+  end
+
+  def is_admin?(user)
+    @admins.include? user.nick
+  end
+
+  def command_reply(m, reply)
+    Channel(@chan).send(reply[1])
+  end
+end
+
 bot = Cinch::Bot.new do
   configure do |c|
     c.nick            = 'NSA'
@@ -296,6 +353,7 @@ bot = Cinch::Bot.new do
     c.ssl.use         = true
     c.channels        = ['#clubhouse']
     c.verbose         = true
+    c.plugins.plugins = [CommandInterface]
   end
 
   on :message, /^!newvote (.+)$/ do |m,question|

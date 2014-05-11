@@ -141,6 +141,9 @@ public final class World {
    * The server instance
    */
   private Server server;
+
+  public boolean clientsNeedUpdate = false;
+
   /**
    * A list of all shops on the server
    */
@@ -661,6 +664,17 @@ public final class World {
       }
     }
     throw new IllegalArgumentException("No quest found");
+  }
+
+  public void pushClientUpdates() {
+    getDB().loadItemDefs();
+    for(Npc npc : npcs) {
+      npc.setAppearnceChanged(true);
+    }
+    for(Player p : players) {
+      p.setAppearnceChanged(true);
+    }
+    clientsNeedUpdate = true;
   }
 
 

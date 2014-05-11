@@ -16,6 +16,7 @@ import org.darkquest.config.Constants;
 import org.darkquest.gs.connection.RSCConnectionHandler;
 import org.darkquest.gs.core.GameEngine;
 import org.darkquest.gs.core.LoginConnector;
+import org.darkquest.gs.core.CommandInterface;
 import org.darkquest.gs.event.DelayedEvent;
 import org.darkquest.gs.event.SingleEvent;
 import org.darkquest.gs.model.World;
@@ -42,6 +43,7 @@ public class Server {
       }
     }
 
+    System.out.println("Config File: " + configFile);
     Constants.GameServer.MOTD = "@yel@Welcome to @whi@" + Constants.GameServer.SERVER_NAME;
 
     try {
@@ -51,7 +53,7 @@ public class Server {
       System.exit(1);
     }
 
-
+    System.out.println("Login IP: " + Config.LS_IP);
     world = World.getWorld();
     Logger.println(Constants.GameServer.SERVER_NAME + " [" + (Constants.GameServer.MEMBER_WORLD ? "P2P" : "F2P") + "] " + "Server starting up...");
     new Server();
@@ -73,6 +75,8 @@ public class Server {
    * The game engine
    */
   private GameEngine engine;
+
+  private CommandInterface commandInterface;
 
 
   public LoginConnector getConnector() {
@@ -96,6 +100,8 @@ public class Server {
    * Update event - if the server is shutting down
    */
   private DelayedEvent updateEvent;
+
+  private DelayedEvent updateDefsEvent;
 
   /**
    * Creates a new server instance, which in turn creates a new engine and
@@ -126,6 +132,8 @@ public class Server {
       ssc.setSendBufferSize(10000);
       ssc.setReceiveBufferSize(10000);
       acceptor.bind(new InetSocketAddress(Config.SERVER_IP, Config.SERVER_PORT), new RSCConnectionHandler(engine), config);
+      commandInterface = new CommandInterface();
+      commandInterface.start();
 
     } catch(Exception e) {
       Logger.error(e);
@@ -159,6 +167,25 @@ public class Server {
     connector.kill();
     System.exit(0);
 
+  }
+
+  public void empty() {
+    Logger.println("Emptying world....");
+    engine.emptyWorld();
+    updateEvent = null;
+  }
+
+  public boolean emptyForUpdate() {
+    if(updateEvent != null) {
+      return false;
+    }
+    updateEvent = new SingleEvent(null, 59000) {
+      public void action() {
+        empty();
+      }
+    };
+    World.getWorld().getDelayedEventHandler().add(updateEvent);
+    return true;
   }
 
 

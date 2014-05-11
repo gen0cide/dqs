@@ -114,6 +114,33 @@ public class DBConnection {
   /**
    * Loads npcdefs, objects, npcs and items from the Database
    */
+
+  public void loadItemDefs() {
+    ResultSet result;
+    try {
+      result = this.statement.executeQuery("SELECT * FROM `dq_itemdef` order by id asc");
+      ArrayList<ItemDef> itemdefs = new ArrayList<ItemDef>();
+      while(result.next()) {
+        ItemDef i = new ItemDef();
+        i.name = result.getString("name");
+        i.basePrice = result.getInt("basePrice");
+        i.command = result.getString("command");
+        i.mask = result.getInt("mask");
+        i.members = result.getInt("members") == 1;
+        i.sprite = result.getInt("sprite");
+        i.stackable = result.getInt("stackable") == 1;
+        i.trade = result.getInt("trade") == 1;
+        i.wieldable = result.getInt("wieldable");
+        itemdefs.add(i);
+      }
+      EntityHandler.items = itemdefs.toArray(new ItemDef[] {});
+    } catch(SQLException e) {
+      System.out.println("Unable to load objects from database");
+      e.printStackTrace();
+      System.exit(1);
+    }
+  }
+
   public void loadObjects(World world) {
     ResultSet result;
     try {

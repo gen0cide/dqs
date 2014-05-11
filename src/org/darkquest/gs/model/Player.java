@@ -750,9 +750,6 @@ public final class Player extends Mob {
         points += item.getWieldableDef().getArmourPoints();
       }
     }
-    if(this.isAdmin()) {
-      points += 5000;
-    }
     return points < 1 ? 1 : points;
   }
 
@@ -911,9 +908,6 @@ public final class Player extends Mob {
         points += item.getWieldableDef().getMagicPoints();
       }
     }
-    if(this.isAdmin()) {
-      points += 5000;
-    }
     return points < 1 ? 1 : points;
   }
 
@@ -985,9 +979,6 @@ public final class Player extends Mob {
       if(item.isWielded()) {
         points += item.getWieldableDef().getPrayerPoints();
       }
-    }
-    if(this.isAdmin()) {
-      points += 5000;
     }
     return points < 1 ? 1 : points;
   }
@@ -1101,9 +1092,6 @@ public final class Player extends Mob {
       }
     }
     points -= 1;
-    if(this.isAdmin()) {
-      points += 5000;
-    }
     return points < 1 ? 1 : points;
   }
 
@@ -1115,9 +1103,6 @@ public final class Player extends Mob {
       }
     }
     points -= 1;
-    if(this.isAdmin()) {
-      points += 5000;
-    }
     return points < 1 ? 1 : points;
   }
 
@@ -1227,19 +1212,20 @@ public final class Player extends Mob {
     if(this.isPMod() && !this.isAdmin()) {
       return;
     }
-    if(useFatigue) {
-      if(fatigue >= 100) {
-        actionSender.sendMessage("@gre@You are too tired to gain experience, get some rest!");
-        return;
-      }
-      if(fatigue >= 96) {
-        actionSender.sendMessage("@gre@You start to feel tired, maybe you should rest soon.");
-      }
-      if(i >= 3 && useFatigue) {
-        fatigue++;
-        actionSender.sendFatigue();
-      }
-    }
+    // Remove this fatigue shit
+    // if(useFatigue) {
+    //   if(fatigue >= 100) {
+    //     actionSender.sendMessage("@gre@You are too tired to gain experience, get some rest!");
+    //     return;
+    //   }
+    //   if(fatigue >= 96) {
+    //     actionSender.sendMessage("@gre@You start to feel tired, maybe you should rest soon.");
+    //   }
+    //   if(i >= 3 && useFatigue) {
+    //     fatigue++;
+    //     actionSender.sendFatigue();
+    //   }
+    // }
     if(combat && i < 3 && (combatStyleToIndex() != i && getCombatStyle() != 0)) {
       return;
     }
@@ -2200,7 +2186,6 @@ public final class Player extends Mob {
     sessionKeys = keys;
     return valid;
   }
-
 
   public void setSkulledOn(Player player) {
     player.addAttackedBy(this);

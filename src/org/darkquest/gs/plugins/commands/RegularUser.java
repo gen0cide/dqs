@@ -48,7 +48,6 @@ public class RegularUser implements CommandListener {
       player.getActionSender().sendOnlinePlayersList();
       return;
     }
-
     else if(command.equals("stuck")) {
       if(System.currentTimeMillis() - player.getCurrentLogin() < 30000) {
         player.getActionSender().sendMessage("You cannot do this after you have recently logged in");
