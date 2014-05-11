@@ -26,6 +26,8 @@ import org.darkquest.gs.plugins.PluginHandler;
 import org.darkquest.gs.util.Logger;
 import org.darkquest.gs.util.PersistenceManager;
 import org.darkquest.gs.external.EntityHandler;
+import org.darkquest.config.Config;
+import org.darkquest.config.Constants;
 
 import redis.clients.jedis.Jedis;
 
@@ -42,8 +44,8 @@ public final class CommandInterface extends Thread {
 
   private Jedis jedis; // = new Jedis("localhost");
 
-  private static String incoming = "command_incoming";
-  private static String outgoing = "command_outgoing";
+  private static String incoming = "command_incoming_" + Config.SERVER_NUM;
+  private static String outgoing = "command_outgoing_" + Config.SERVER_NUM;
   private List<String> messages;
 
   public CommandInterface() {
