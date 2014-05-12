@@ -1,1 +1,1 @@
-nohup ant runserver > ls.log 2>&1 &
+nohup ant runserver > gs.log 2>&1 &
