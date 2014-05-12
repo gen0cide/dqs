@@ -81,6 +81,12 @@
     <java classname="org.darkquest.gs.Server" fork="true">
       <jvmarg value="-Xms128m" />
       <jvmarg value="-Xmx512m" />
+      <jvmarg value="-Dcom.sun.management.jmxremote" />
+      <jvmarg value="-Dcom.sun.management.jmxremote.port=19191" />
+      <jvmarg value="-Dcom.sun.management.jmxremote.authenticate=false" />
+      <jvmarg value="-Dcom.sun.management.jmxremote.local.only=false" />
+      <jvmarg value="-Dcom.sun.management.jmxremote.ssl=false" />
+      <jvmarg value="-Djava.rmi.server.hostname=rsc.beefsec.com" />
       <arg value="dev.conf" />
       <arg value="f2p" />
       <arg value="no" />
