@@ -87,17 +87,8 @@ public final class CommandInterface extends Thread {
           break;
         case "dump":
           try {
-            //Map<String, Object> properties = new HashMap<String, Object>(1);
-            //properties.put(JsonWriter.PRETTY_PRINTING, true);
             PrintWriter writer = new PrintWriter("/opt/web/world.json", "UTF-8");
-            // Gson gson = new GsonBuilder()
-            //      .setExclusionStrategies(new MyExclusionStrategy())
-            //      .enableComplexMapKeySerialization()
-            //      .serializeNulls()
-            //      .setPrettyPrinting()
-            //      .create();          
-            // String jsons = gson.toJson(world);
-            String jsons = JsonWriter.objectToJson(World.getWorld());
+            String jsons = JsonWriter.objectToJson(World.getWorld().getPlayers());
             writer.println(jsons);
             writer.close();
             reply("Done: http://rsc.beefsec.com/world.json");

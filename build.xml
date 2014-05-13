@@ -86,7 +86,7 @@
   <target name="devserver">
     <java classname="org.darkquest.gs.Server" fork="true">
       <jvmarg value="-Xms128m" />
-      <jvmarg value="-Xmx2g" />
+      <jvmarg value="-Xmx12g" />
       <jvmarg value="-Dcom.sun.management.jmxremote" />
       <jvmarg value="-Dcom.sun.management.jmxremote.port=19191" />
       <jvmarg value="-Dcom.sun.management.jmxremote.authenticate=false" />
