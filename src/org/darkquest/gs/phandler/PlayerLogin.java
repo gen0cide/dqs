@@ -34,10 +34,12 @@ public class PlayerLogin implements PacketHandler {
   }
 
   public void handlePacket(org.darkquest.gs.connection.Packet p, IoSession session) throws Exception {
+    System.out.println("Handling login packet...");
     byte loginCode = p.readByte();
     RSCPacketBuilder pb = new RSCPacketBuilder();
     pb.setBare(true);
-    pb.addByte(loginCode);
+    byte fix = (byte) 25;
+    pb.addByte(fix);
     player.getSession().write(pb.toPacket());
     if(loginCode == 0 || loginCode == 1 || loginCode == 99) {
       player.setOwner(p.readInt());

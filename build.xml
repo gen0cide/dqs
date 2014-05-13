@@ -24,6 +24,8 @@
         <pathelement location="${lib}/hex-string.jar" />
         <pathelement location="${lib}/jmf.jar" />
         <pathelement location="${lib}/jedis.jar" />
+        <pathelement location="${lib}/gson-2.2.4.jar" />
+        <pathelement location="${lib}/json-io-2.2.29.jar" />
         <pathelement path="${java.class.path}/"/>
       </classpath>
     </javac>
@@ -41,16 +43,18 @@
       <jvmarg value="-Xmx512m" />
       <arg value="ls.conf" />
       <classpath>
-              <pathelement location="${lib}/mina.jar" />
-      <pathelement location="${lib}/xpp3.jar" />
-      <pathelement location="${lib}/kxml2.jar" />
-      <pathelement location="${lib}/xmlpull.jar" />
-      <pathelement location="${lib}/slf4j.jar"/>
-      <pathelement location="${lib}/xstream.jar"/>
-      <pathelement location="${lib}/mysql-connector.jar" />
-      <pathelement location="${lib}/hex-string.jar" />
-      <pathelement location="${lib}/jmf.jar" />
+        <pathelement location="${lib}/mina.jar" />
+        <pathelement location="${lib}/xpp3.jar" />
+        <pathelement location="${lib}/kxml2.jar" />
+        <pathelement location="${lib}/xmlpull.jar" />
+        <pathelement location="${lib}/slf4j.jar"/>
+        <pathelement location="${lib}/xstream.jar"/>
+        <pathelement location="${lib}/mysql-connector.jar" />
+        <pathelement location="${lib}/hex-string.jar" />
+        <pathelement location="${lib}/jmf.jar" />
         <pathelement location="${lib}/jedis.jar" />
+        <pathelement location="${lib}/gson-2.2.4.jar" />
+        <pathelement location="${lib}/json-io-2.2.29.jar" />
         <pathelement path="${jar}/" />
       </classpath>
     </java>
@@ -63,16 +67,18 @@
       <arg value="f2p" />
       <arg value="no" />
       <classpath>
-              <pathelement location="${lib}/mina.jar" />
-      <pathelement location="${lib}/xpp3.jar" />
-      <pathelement location="${lib}/kxml2.jar" />
-      <pathelement location="${lib}/xmlpull.jar" />
-      <pathelement location="${lib}/slf4j.jar"/>
-      <pathelement location="${lib}/xstream.jar"/>
-      <pathelement location="${lib}/mysql-connector.jar" />
-      <pathelement location="${lib}/hex-string.jar" />
+        <pathelement location="${lib}/mina.jar" />
+        <pathelement location="${lib}/xpp3.jar" />
+        <pathelement location="${lib}/kxml2.jar" />
+        <pathelement location="${lib}/xmlpull.jar" />
+        <pathelement location="${lib}/slf4j.jar"/>
+        <pathelement location="${lib}/xstream.jar"/>
+        <pathelement location="${lib}/mysql-connector.jar" />
+        <pathelement location="${lib}/hex-string.jar" />
         <pathelement location="${lib}/jedis.jar" />
-      <pathelement location="${lib}/jmf.jar" />
+        <pathelement location="${lib}/jmf.jar" />
+        <pathelement location="${lib}/gson-2.2.4.jar" />
+        <pathelement location="${lib}/json-io-2.2.29.jar" />
         <pathelement path="${jar}/" />
       </classpath>
     </java>
@@ -80,7 +86,7 @@
   <target name="devserver">
     <java classname="org.darkquest.gs.Server" fork="true">
       <jvmarg value="-Xms128m" />
-      <jvmarg value="-Xmx512m" />
+      <jvmarg value="-Xmx2g" />
       <jvmarg value="-Dcom.sun.management.jmxremote" />
       <jvmarg value="-Dcom.sun.management.jmxremote.port=19191" />
       <jvmarg value="-Dcom.sun.management.jmxremote.authenticate=false" />
@@ -91,16 +97,18 @@
       <arg value="f2p" />
       <arg value="no" />
       <classpath>
-              <pathelement location="${lib}/mina.jar" />
-      <pathelement location="${lib}/xpp3.jar" />
-      <pathelement location="${lib}/kxml2.jar" />
-      <pathelement location="${lib}/xmlpull.jar" />
-      <pathelement location="${lib}/slf4j.jar"/>
-      <pathelement location="${lib}/xstream.jar"/>
-      <pathelement location="${lib}/mysql-connector.jar" />
-      <pathelement location="${lib}/hex-string.jar" />
-      <pathelement location="${lib}/jmf.jar" />
-      <pathelement location="${lib}/jedis.jar" />
+        <pathelement location="${lib}/mina.jar" />
+        <pathelement location="${lib}/xpp3.jar" />
+        <pathelement location="${lib}/kxml2.jar" />
+        <pathelement location="${lib}/xmlpull.jar" />
+        <pathelement location="${lib}/slf4j.jar"/>
+        <pathelement location="${lib}/xstream.jar"/>
+        <pathelement location="${lib}/mysql-connector.jar" />
+        <pathelement location="${lib}/hex-string.jar" />
+        <pathelement location="${lib}/jmf.jar" />
+        <pathelement location="${lib}/jedis.jar" />
+        <pathelement location="${lib}/gson-2.2.4.jar" />
+        <pathelement location="${lib}/json-io-2.2.29.jar" />
         <pathelement path="${jar}/" />
       </classpath>
     </java>

@@ -1,6 +1,7 @@
 <PacketHandler-array>
 		<PacketHandler>
 			<ids>
+				<int>0</int>
 				<int>77</int>
 			</ids>
 			<className>org.darkquest.gs.phandler.client.PlayerLogin</className>
@@ -257,7 +258,13 @@
 				<int>74</int>
 			</ids>
 			<className>org.darkquest.gs.phandler.client.NpcCommand</className>
-		</PacketHandler>		<PacketHandler>			<ids>				<int>200</int>			</ids>			<className>org.darkquest.gs.phandler.client.Sleepword</className>		</PacketHandler>
+		</PacketHandler>
+		<PacketHandler>
+			<ids>
+				<int>200</int>
+			</ids>
+			<className>org.darkquest.gs.phandler.client.Sleepword</className>
+		</PacketHandler>
 		<PacketHandler>
 			<ids>
 				<int>201</int>

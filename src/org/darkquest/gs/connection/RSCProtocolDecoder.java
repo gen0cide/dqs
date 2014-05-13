@@ -6,6 +6,9 @@ import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 import org.darkquest.gs.util.Logger;
 
+import java.util.Random;
+import java.util.Arrays;
+
 
 /**
  * A decoder for the RSC protocol. Parses the incoming data from an IoSession
@@ -38,29 +41,33 @@ public class RSCProtocolDecoder extends CumulativeProtocolDecoder {
    * @return Whether enough data was available to create a packet
    */
   protected synchronized boolean doDecode(IoSession session, ByteBuffer in, ProtocolDecoderOutput out) {
-    try {
-      if(in.remaining() >= 2) {
-        byte[] buf = new byte[] { in.get(), in.get() };
-        int length = ((short)((buf[0] & 0xff) << 8) | (short)(buf[1] & 0xff));
-        // Logger.log("len="+length);
-        if(length <= in.remaining()) {
-          if(length - 1 < 0) {
-            Logger.println("Negative array length! id=" + in.getUnsigned() + ",len=" + length);
-            session.close();
-            return true;
-          }
-          byte[] payload = new byte[length - 1];
+    try {      
+      // make sure the packet has contents
+      if(in.remaining() >= 1) {
+        // parse the first two bytes        
+        byte[] buf = new byte[] { in.get(), in.get() };                
+        if(in.remaining() > 0) {          
+          // ok we have a valid packet, get the ID
           int id = in.get() & 0xff;
-          in.get(payload);
-          RSCPacket p = new RSCPacket(session, id, payload);
+          // build a payload byte[] to pass
+          // need to add room for the LSB
+          byte[] payload = new byte[in.remaining() + 1];
+          if(in.remaining() > 0) {
+            // move the ByteBuffer contents into the payload
+            in.get(payload, 0, in.remaining());
+          }
+          // add the LSB to the end of the payload
+          payload[payload.length-1] = in.get(1);  
+          // Create a new packet with the parsed payload        
+          RSCPacket p = new RSCPacket(session, id, payload);          
+          // Send it on up the stack to the Packet Handler
           out.write(p);
           return true;
-        } else {
+        } else {        
           in.rewind();
           return false;
         }
       }
-
     } catch(Exception e) {
       e.printStackTrace();
     }

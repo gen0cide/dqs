@@ -59,6 +59,7 @@ public class RSCConnectionHandler implements IoHandler {
       return;
     }
     RSCPacket p = (RSCPacket) message;
+    System.out.println("New Packet Received: " + p.getID());
     player.addPacket(p);
     packets.add(p);
   }

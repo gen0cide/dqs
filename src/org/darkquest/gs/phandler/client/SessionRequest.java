@@ -24,9 +24,7 @@ public class SessionRequest implements PacketHandler {
       Logger.println("[WARNING] SessionRequest for already Initialized player!");
       return;
     }
-    byte userByte = p.readByte();
-    player.setClassName(p.readString().trim());
-    long serverKey = Formulae.generateSessionKey(userByte);
+    long serverKey = Formulae.generateSessionKey();
     player.setServerKey(serverKey);
     RSCPacketBuilder pb = new RSCPacketBuilder();
     pb.setBare(true);

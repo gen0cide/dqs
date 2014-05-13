@@ -510,7 +510,7 @@ public class Formulae {
   /**
    * Generates a session id
    */
-  public static long generateSessionKey(byte userByte) {
+  public static long generateSessionKey() {
     return DataConversions.getRandom().nextLong();
   }
 

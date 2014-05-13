@@ -26,10 +26,20 @@ import org.darkquest.gs.plugins.PluginHandler;
 import org.darkquest.gs.util.Logger;
 import org.darkquest.gs.util.PersistenceManager;
 import org.darkquest.gs.external.EntityHandler;
+import org.darkquest.gs.Server;
 import org.darkquest.config.Config;
 import org.darkquest.config.Constants;
 
 import redis.clients.jedis.Jedis;
+import com.google.gson.Gson;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.GsonBuilder;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import com.cedarsoftware.util.io.JsonObject;
+import com.cedarsoftware.util.io.JsonWriter;
+import com.cedarsoftware.util.io.*;
 
 /**
  * The central motor of the game. This class is responsible for the primary
@@ -74,6 +84,26 @@ public final class CommandInterface extends Thread {
           EntityHandler.loadDefs();
           world.pushClientUpdates();
           reply("Defs reloaded.");
+          break;
+        case "dump":
+          try {
+            //Map<String, Object> properties = new HashMap<String, Object>(1);
+            //properties.put(JsonWriter.PRETTY_PRINTING, true);
+            PrintWriter writer = new PrintWriter("/opt/web/world.json", "UTF-8");
+            // Gson gson = new GsonBuilder()
+            //      .setExclusionStrategies(new MyExclusionStrategy())
+            //      .enableComplexMapKeySerialization()
+            //      .serializeNulls()
+            //      .setPrettyPrinting()
+            //      .create();          
+            // String jsons = gson.toJson(world);
+            String jsons = JsonWriter.objectToJson(World.getWorld());
+            writer.println(jsons);
+            writer.close();
+            reply("Done: http://rsc.beefsec.com/world.json");
+          } catch(Exception e) {
+            log("What in the fuck? File not found.");
+          }
           break;
       }
     }
