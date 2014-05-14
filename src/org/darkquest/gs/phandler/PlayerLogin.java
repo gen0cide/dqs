@@ -257,8 +257,8 @@ public class PlayerLogin implements PacketHandler {
       sender.sendQuestInfo();
 
       if(player.isAdmin() || player.isPMod()) {
-        player.setnopk(true);
-        player.setnonaggro(true);
+        // player.setnopk(true);
+        // player.setnonaggro(true);
       }
 
       player.setLoggedIn(true);

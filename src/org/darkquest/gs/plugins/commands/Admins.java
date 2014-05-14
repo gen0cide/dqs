@@ -206,8 +206,6 @@ public class Admins implements CommandListener {
       int min_y = base_y - 20;
       int base_i = Integer.parseInt(args[0]);
       Npc new_npc = new Npc(base_i, base_x, base_y, min_x, max_x, min_y, max_y);
-      new_npc.setGoingToAttack(true);
-      new_npc.setRespawn(false);
       world.registerNpc(new_npc);
     }
     if(command.equals("f2pwild")) {
